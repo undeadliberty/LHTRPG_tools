@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=480px, user-scalable=yes" >
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script defer type="text/javascript" src="readjson.js"></script>
+  <title>LHTRPG簡易キャラシビューア</title>
+</head>
+<body ontouchstart = "">
+  <p id="src_form"><span class="form">
+    <label>データベース:<input type="file" id="file_input" accept=".lhdb" onchange="openjson_local(this)"></label>
+  </span><span class="form">
+    <input type="button" value="データベース出力" onclick="writejson()">
+  </span> <span class="form">
+    <label>ID:<input type="text" id="sheet_id" size="10"></label>
+    <input type="button" value="窓口から読み込み" onclick="openjson()">
+  </span> <span class="form">
+    <select id="view_char" required onchange="select_char()">
+      <option id="tmp_char" value="" label="表示キャラ"></option>
+    </select>
+    ⇒
+    <input type="text" id="save_char" list="save_list" value="セーブ名">
+    <datalist id="save_list">
+      <option value="セーブ名"></option>
+    </datalist>
+    <input type="button" value="保存" onclick="savejson()">
+  </span> <span class="form">
+    <select id="cr_list" required onchange="select_cr()">
+      <option value="" label="CR:--"></option>
+    </select>
+  </span></p>
+  <hr>
+  <table id="basedata">
+    <caption hidden>基本データ</caption>
+    <tbody class="cr_block">
+    <tr><th>CR:</th><td class="num" id="character_rank">--</td>
+    </tr></tbody><tbody class="pcname"><tr>
+    <tr class="pcname"><th hidden>PC名:</th><td class="strings" id="name">PC名(仮)</td>
+    </tr></tbody><tbody  class="job"><tr class="job">
+      <td class="enum" id="main_job">メイン職業</td>
+    </tr><tr class="job">
+      <td class="enum" id="sub_job">サブ職業</td>
+    </tr><tr class="job">
+      <td class="enum" id="race">種族</td>
+    </tr></tbody>
+  </table>
+  <table id="status">
+    <caption hidden>ステータス</caption>
+    <tr>
+      <th>HP</th><td class= "num" id="max_hitpoint"></td>
+      <th>因果</th><td class= "num" id="effect"></td>
+      <th>行動</th><td class= "num" id="action"></td>
+      <th>移動</th><td class= "num" id="move"></td>
+      <th>射程</th><td class= "num" id="range"></td>
+    </tr><tr>
+      <th>攻撃</th> <td class= "num" id="physical_attack"></td>
+      <th>魔力</th> <td class= "num" id="magic_attack"></td>
+      <th>物防</th> <td class= "num" id="physical_defense"></td>
+      <th>魔防</th> <td class= "num" id="magic_defense"></td>
+      <th>回復</th> <td class= "num" id="heal_power"></td>
+    </tr>
+  </table>
+  <table id="abl">
+    <caption hidden>能力値</caption>
+    <tr>
+      <th>STR</th>
+      <td class= "num" id="str_value"></td>
+      <td class= "nump" id="str_basic_value">(&nbsp;&nbsp;)</td>
+      <th>運動</th><td class= "dice" id="abl_motion">&nbsp;0+&nbsp;0D</td>
+      <th>耐久</th><td class= "dice" id="abl_durability">&nbsp;0+&nbsp;0D</td>
+      <th>命中</th><td class= "dice" id="abl_hit">&nbsp;0+&nbsp;0D</td>
+    </tr><tr>
+      <th>DEX</th>
+      <td class= "num" id="dex_value"></td>
+      <td class= "nump" id="dex_basic_value">(&nbsp;&nbsp;)</td>
+      <th>解除</th><td class= "dice" id="abl_dismantle">&nbsp;0+&nbsp;0D</td>
+      <th>操作</th><td class= "dice" id="abl_operate">&nbsp;0+&nbsp;0D</td>
+      <th>回避</th><td class= "dice" id="abl_avoid">&nbsp;0+&nbsp;0D</td>
+    </tr><tr>
+      <th>POW</th>
+      <td class= "num" id="pow_value" ></td>
+      <td class= "nump" id="pow_basic_value">(&nbsp;&nbsp;)</td>
+      <th>知覚</th><td class= "dice" id="abl_sense">&nbsp;0+&nbsp;0D</td>
+      <th>交渉</th><td class= "dice" id="abl_negotiate">&nbsp;0+&nbsp;0D</td>
+      <th>抵抗</th><td class= "dice" id="abl_resist">&nbsp;0+&nbsp;0D</td>
+    </tr><tr>
+      <th>INT</th>
+      <td class= "num" id="int_value"></td>
+      <td class= "nump" id="int_basic_value">(&nbsp;&nbsp;)</td>
+      <th>知識</th><td class= "dice" id="abl_knowledge">&nbsp;0+&nbsp;0D</td>
+      <th>解析</th><td class= "dice" id="abl_analyze">&nbsp;0+&nbsp;0D</td>
+      <th></th><td class= "dice"></td>
+    </tr>
+  </table>
+  <table id="equip">
+    <colgroup span="1" class="head">
+    <colgroup span="3" class="data">
+    <tr>
+      <th>手</th>
+      <td class="item strings" id="hand1">&nbsp;
+      </td><td class="item strings" id="hand2">&nbsp;</td>
+    </tr><tr>
+      <th>防具</th>
+      <td class="item strings" id="armor">&nbsp;</td>
+    </tr><tr>
+      <th>補助</th>
+      <td class="item strings" id="support_item1">&nbsp;
+      </td><td class="item strings" id="support_item2">&nbsp;
+      </td><td class="item strings" id="support_item3">&nbsp;</td>
+    </tr><tr>
+      <th>鞄</th>
+      <td class="item strings" id="bag">&nbsp;</td>
+    </tr>
+  </table>
+  <table id="belongings">
+    <caption hidden>所持品一覧</caption>
+    <colgroup span="1" class="head">
+    <colgroup span="1" class="data" id="items_num">
+    <tr id="items">
+      <th>所持</th>
+      <td class="strings" id="item_emp">空きスロット:2</td>
+    </tr>
+  </table>
+  <table id="skills">
+    <caption hidden>所持スキル一覧</caption>
+    <tbody id="skill_block">
+    </tbody>
+  </table>
+</body>
+</html>
