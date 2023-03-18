@@ -299,15 +299,6 @@ function openjson() {
     datafill(data);
   }
 }
-function openjson_local(e) {
-  let reader = new FileReader();
-  reader.readAsText(e.files[0], "UTF-8");
-  reader.onload = function () {
-    data = JSON.parse(reader.result);
-    console.log(data["name"]);
-    datafill(data);
-  }
-}
 
 function datafill(chardata) {
   // JSONデータを出力したいHTML要素を指定
@@ -470,9 +461,8 @@ function write_skill(data) {
   <p id="src_form"><span class="form">
     <label>ID:<input type="text" id="sheet_id" size="10"></label>
     <input type="button" value="窓口から読み込み" onclick="openjson()">
-  </span> <span class="form">
-    <label>JSON:<input type="file" id="file_input" accept=".JSON" onchange="openjson_local(this)"></label>
   </span></p>
+  <hr>
   <table id="basedata">
     <caption hidden>基本データ</caption>
     <tbody class="cr_block">
@@ -574,5 +564,10 @@ function write_skill(data) {
     <tbody id="skill_block">
     </tbody>
   </table>
+  <hr>
+  <h3>使い方:</h3>
+  1. IDボックスにキャラID(https://lhrpg.com/lhz/pc?id=○○○○ の○○○○の部分)を入力する<br>
+  2. [窓口から読み込み]ボタンを押す<br>
+  ※PC名、アイテム名、スキル名にカーソルをのせると詳細情報が出ます。
 </body>
 </html>
