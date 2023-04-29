@@ -317,7 +317,7 @@ function datafill(chardata) {
   document.getElementById("wrapname").innerHTML= chardata["name"];
   document.getElementById("wrapplay").innerHTML= "@"+chardata["player_name"];
   document.getElementById("wraptag").innerHTML= '<li class="skillTag">'+chardata["tags"].join('</li><li class="skillTag">')+'</li>';
-  document.getElementById("wrapremark").innerHTML= chardata["remarks"].replace(/[\r\n|\n]+/g,"<br>");
+  document.getElementById("wrapremark").innerHTML= chardata["remarks"]?chardata["remarks"].replace(/[\r\n|\n]+/g,"<br>"):"<br>";
   
   keys=["str_basic_value","dex_basic_value","pow_basic_value","int_basic_value"];
   keys.forEach(key => {
