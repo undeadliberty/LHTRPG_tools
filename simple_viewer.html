@@ -299,6 +299,15 @@ function openjson() {
     datafill(data);
   }
 }
+function openjson_local(e) {
+  let reader = new FileReader();
+  reader.readAsText(e.files[0], "UTF-8");
+
+  reader.onload = function () {
+    data = JSON.parse(reader.result);
+    datafill(data);
+  }
+}
 
 function datafill(chardata) {
   // JSONデータを出力したいHTML要素を指定
@@ -461,6 +470,7 @@ function write_skill(data) {
   <p id="src_form"><span class="form">
     <label>ID:<input type="text" id="sheet_id" size="10"></label>
     <input type="button" value="窓口から読み込み" onclick="openjson()">
+    <input type="file" id="file_input" accept=".json" onchange="openjson_local(this)">
   </span></p>
   <hr>
   <table id="basedata">
