@@ -323,6 +323,7 @@ function datafill(chardata) {
   keys.forEach(key => {
     document.getElementById(key).innerHTML= chardata[key];
   });
+  document.getElementById("title").innerHTML= chardata["name"]+" :LHTRPG_Viewer";
   document.getElementById("wrapname").innerHTML= chardata["name"];
   document.getElementById("wrapplay").innerHTML= "@"+chardata["player_name"];
   document.getElementById("wraptag").innerHTML= '<li class="skillTag">'+chardata["tags"].join('</li><li class="skillTag">')+'</li>';
@@ -464,7 +465,7 @@ function write_skill(data) {
   return code;
 }
   </script>
-  <title>LHTRPG簡易キャラシビューア</title>
+  <title id="title">LHTRPG簡易キャラシビューア</title>
 </head>
 <body ontouchstart = "">
   <p id="src_form"><span class="form">
