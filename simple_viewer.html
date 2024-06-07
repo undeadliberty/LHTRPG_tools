@@ -289,7 +289,7 @@ tr.pcname:hover td.nameWrap {
 function openjson() {
   let url = document.getElementById("sheet_id").value;
   let request = new XMLHttpRequest();
-  request.open('GET', "https://lhrpg.com/lhz/api/"+url+".json");
+  request.open('GET', "https://lhrpg.com/lhz/api/"+url+".json?timestamp="+new Date().getTime());
   request.responseType = 'json';
   request.send();
 

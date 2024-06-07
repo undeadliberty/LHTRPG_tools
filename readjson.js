@@ -5,7 +5,7 @@ var tmpcr="";
 function openjson() {
   let url_id = document.getElementById("sheet_id").value;
   let request = new XMLHttpRequest();
-  request.open('GET', "https://lhrpg.com/lhz/api/"+url_id+".json");
+  request.open('GET', "https://lhrpg.com/lhz/api/"+url_id+".json?timestamp="+new Date().getTime());
   request.responseType = 'json';
   request.send();
 
@@ -93,6 +93,13 @@ window.addEventListener('beforeunload', function (e) {
   e.returnValue = '';
 });
 
+function makesheet(chardata) {
+  var obj = window.open();
+  let code='';
+  obj.document.open();
+  obj.document.write(code);
+  obj.document.close();
+}
 function datafill(chardata) {
   // JSONデータを出力したいHTML要素を指定
   keys=["name","character_rank","main_job","sub_job","race",
